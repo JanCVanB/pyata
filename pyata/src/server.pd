@@ -1,0 +1,8 @@
+#N canvas 447 174 438 211 10;
+#X obj 298 33 loadbang;
+#X msg 297 63 \; pd dsp 1;
+#X msg 295 112 \; pd dsp 0;
+#N canvas 0 22 737 328 new 0;
+#X restore 122 92 pd new;
+#X obj 123 51 netreceive 3000 0 old;
+#X connect 0 0 1 0;
