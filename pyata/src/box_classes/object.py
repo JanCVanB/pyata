@@ -11,11 +11,15 @@
 from box import *
 
 
+
+
+#box class itself
 class Object (Box):
     #constructor
     def __init__(self, x, y, label, id):
         Box.__init__(self,x, y, id)
         self.label = label
+        
     
     #edits this object
     def edit(self, label):
@@ -26,9 +30,11 @@ class Object (Box):
             command += "key 0 " + str(ord(i)) + " 0 ; " 
         command += self.unselect() #unselects
         return command
-            
-if __name__ == '__main__':
-    o = Object(10, 10, 0, "dac~")
-    print o.edit("osc~")
-    print o.edit("")
+    
+    #aux static function to debug this class
+    @staticmethod
+    def debug():
+        o = Object(10, 10, 0, "dac~")
+        print o.edit("osc~")
+        print o.edit("")
     

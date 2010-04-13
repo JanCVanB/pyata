@@ -34,6 +34,7 @@ SERVER_DIR = "/home/jeraman/workspace/pyata/src"
 
 
 
+
 # a thread class that we're gonna use for calling the server.pd patch
 class RemotePd ( Thread ):
     def __init__(self, nogui):
@@ -76,13 +77,20 @@ class Communication(socket):
             return False
     
     #sending a command to pd
-    def send_pd(self, command):
+    def send_pd(self, commands):
         try:
-            command = canvas + " "+command+ ";" 
-            self.send(command)
+            message = ""
+            
+            if isinstance(commands, (str, unicode)):
+                message = self.canvas + " " + commands + " "
+            else:
+                for cmd in commands:
+                    message += self.canvas + " " + cmd + " "
+        
+            self.send(message)
             return True
         except error, err: 
-            print "Error sending message %s : %s" % (command, err) 
+            print "Error sending message %s : %s" % (message, err) 
             return False
 
 
@@ -99,10 +107,14 @@ class Communication(socket):
     def set_canvas(self, canvas):
         self.canvas=canvas
         
+    #aux static function to debug this class
+    @staticmethod
+    def debug():
+        c = Communication(False)
+        c.init_pd()
+        sleep(5)
+        c.finish_pd()
         
-if __name__ == '__main__':
-    c = Communication(False)
-    c.init_pd()
-    sleep(5)
-    c.finish_pd()
+        
+
         
