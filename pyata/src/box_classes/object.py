@@ -16,29 +16,27 @@ from box import *
 #box class itself
 class Object (Box):
     #constructor
-    def __init__(self, x, y, label, id):
+    def __init__(self, x, y, label, id=-1):
         Box.__init__(self,x, y, id)
         self.label = label
+        command = Box.canvas + "obj " + str(self.x) + " " + str(self.y) + " " + self.label + "; "
+        Box.snd.send_pd(command)
         
     
     #edits this object
     def edit(self, label):
-        command = self.unselect() #unselects
+        self.unselect() #unselects
+        self.click() #selects this    
         
-        temp = self.click() #selects this
-        for cmd in temp:
-            command.append(cmd)
-        
+        command = ""
         for i in label: #sends all key pressed
-            command.append("key 1 " + str(ord(i)) + " 0 ; ") 
-            command.append("key 0 " + str(ord(i)) + " 0 ; ") 
+            command += Box.canvas + "key 1 " + str(ord(i)) + " 0 ; "
+            command += Box.canvas + "key 0 " + str(ord(i)) + " 0 ; " 
         
-        temp = self.unselect() #unselects this
-        for cmd in temp:
-            command.append(cmd)
-        
+        Box.snd.send_pd(command)
+        self.unselect() #unselects this
         self.label = label
-        return command
+        
     
     #aux static function to debug this class
     @staticmethod

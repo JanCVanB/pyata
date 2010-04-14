@@ -15,6 +15,7 @@ from threading  import *
 from socket     import *
 from time       import *  
 from subprocess import *
+from box_classes.box import *
 from box_classes.number import *
 from box_classes.symbol import *
 
@@ -65,7 +66,7 @@ class Communication():
         self.rcv_socket = socket(AF_INET, SOCK_STREAM)
         self.host = HOST 
         self.thread=RemotePd(nogui)
-        self.canvas = "pd-new"
+        #self.canvas = "pd-new"
         self.rcv = ""
             
     #connecting to pd
@@ -88,6 +89,7 @@ class Communication():
     
     #init some socket variables
     def init_pyata(self):
+        Box.set_sender(self)
         Number.init_socket(self.rcv)
         Symbol.init_socket(self.rcv)
     
@@ -95,15 +97,7 @@ class Communication():
     #sending a command to pd
     def send_pd(self, commands):
         try:
-            message = ""
-            
-            if isinstance(commands, (str, unicode)):
-                message = self.canvas + " " + commands + " "
-            else:
-                for cmd in commands:
-                    message += self.canvas + " " + cmd + " "
-        
-            self.snd_socket.send(message)
+            self.snd_socket.send(commands)
             return True
         except error, err: 
             print "Error sending message %s : %s" % (message, err) 
@@ -115,8 +109,8 @@ class Communication():
         temp = "killall pd"
         p = Popen(temp, shell=True)
         
-        self.snd_socket.close() 
         self.rcv_socket.close()
+        self.snd_socket.close() 
         print "closing connection with pd" 
 
         

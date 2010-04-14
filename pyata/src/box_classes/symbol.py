@@ -15,11 +15,14 @@ from socket import *
 
 #number class itself
 class Symbol (Box):
+    rcv = ""
+    
     #constructor
-    def __init__(self, x, y, id):
+    def __init__(self, x, y, id=-1):
         Box.__init__(self,x, y, id)
         self.text = "symbol"
-        rcv = ""
+        command = Box.canvas + "obj " + str(self.x) + " " + str(self.y) + " sym ; "
+        Box.snd.send_pd(command)
     
     @staticmethod
     def init_socket(r):
@@ -34,14 +37,16 @@ class Symbol (Box):
     
     #edits this object
     def set(self, text): 
-        command = self.click() #clicks
+        self.click() #clicks
+        command = ""
         for i in text: #sends all key pressed
-            command.append("key 1 " + str(ord(i)) + " 0 ; ") 
-            command.append("key 0 " + str(ord(i)) + " 0 ; ")   
-        command.append("key 1 10 0 ;") # press enter
-        command.append("key 0 10 0 ;")
+            command += Box.canvas + "key 1 " + str(ord(i)) + " 0 ; " 
+            command += Box.canvas + "key 0 " + str(ord(i)) + " 0 ; "   
+        Box.snd.send_pd(command)
+        command  = Box.canvas + "key 1 10 0 ;" # press enter
+        command += Box.canvas + "key 0 10 0 ;"
         #self.value = self.get_value()
-        return command
+        Box.snd.send_pd(command)
     
     
     #aux static function to debug this class
