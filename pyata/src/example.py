@@ -1,13 +1,32 @@
 
-from box_classes.object import *
+from box_classes.box import *
+from box_classes.number import *
 from communication import *
 
 #file created just for debug tests
 
+
+
 if __name__ == '__main__':
+    # RECEBENDO AS INFORMAÇÕES DO PD PELA PORTA 3001!!!
+    print "iniciando socket"
+    s = socket(AF_INET, SOCK_STREAM)
+    s.bind(("localhost",3001))
+    s.listen(1)
+    c, addr = s.accept() 
+    while 1:
+        print c.recv(32)
+    
+
+    
+    
+    
+  
+  
+    
+def debug_object():
     pd = Communication(False)
     pd.init_pd()
-    
     command = "editmode 1;"
     pd.send_pd(command);
     
@@ -42,8 +61,5 @@ if __name__ == '__main__':
     print command
     pd.send_pd(command)
     sleep(5)
-    
-    
-    
     
     pd.finish_pd()
