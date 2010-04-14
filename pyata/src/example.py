@@ -1,6 +1,7 @@
 
 from box_classes.box import *
 from box_classes.number import *
+from box_classes.message import *
 from communication import *
 
 #file created just for debug tests
@@ -9,9 +10,49 @@ from communication import *
 
 if __name__ == '__main__':
     print "ei man"
-
     
-#def debug_number():
+    
+    
+def debug_message():
+    pd = Communication(False)
+    pd.init_pd()
+    
+    m = Message(10, 10, "alo", 0)
+    command = "msg " + str(m.x)  + " " + str(m.y) + " " + m.text + " ; "
+    print command
+    pd.send_pd(command)
+    sleep(2)
+    
+    command = m.click()
+    print command
+    pd.send_pd(command)
+    sleep(2)
+    
+    command = "editmode 1 ;"
+    print command
+    pd.send_pd(command)
+    sleep(2)
+    
+    command = m.edit("mimimi")
+    print command
+    pd.send_pd(command)
+    sleep(2)
+    
+    command = "editmode 0 ;"
+    print command
+    pd.send_pd(command)
+    sleep(2)
+    
+    command = m.click()
+    print command
+    pd.send_pd(command)
+    sleep(2)
+
+    pd.finish_pd()
+    
+
+
+def debug_number():
     pd = Communication(False)
     pd.init_pd()
     

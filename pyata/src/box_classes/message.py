@@ -1,35 +1,32 @@
 
 ##########################################################
 ##########################################################
-# description: abstract class that represents a generic Object box
+# description: abstract class that represents a message box
 #
 # autor: jeraman
-# date: 13/04/2010
+# date: 14/04/2010
 ##########################################################
 ##########################################################
 
-from box import *
 
+from box_classes.box import *
 
-
-
-#box class itself
-class Object (Box):
+#number class itself
+class Message (Box):
     #constructor
-    def __init__(self, x, y, label, id):
+    def __init__(self, x, y,text, id):
         Box.__init__(self,x, y, id)
-        self.label = label
-        
+        self.text = text
     
     #edits this object
-    def edit(self, label):
+    def edit(self, text):
         command = self.unselect() #unselects
         
         temp = self.click() #selects this
         for cmd in temp:
             command.append(cmd)
         
-        for i in label: #sends all key pressed
+        for i in text: #sends all key pressed
             command.append("key 1 " + str(ord(i)) + " 0 ; ") 
             command.append("key 0 " + str(ord(i)) + " 0 ; ") 
         
@@ -37,13 +34,11 @@ class Object (Box):
         for cmd in temp:
             command.append(cmd)
         
-        self.label = label
+        self.text = text    
         return command
     
     #aux static function to debug this class
     @staticmethod
     def debug():
-        o = Object(10, 10, 0, "dac~")
-        print o.edit("osc~")
-        print o.edit("")
-    
+        box = Message(20, 20, "alo!", 0)
+        print box.edit("ola")
