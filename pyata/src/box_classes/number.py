@@ -19,14 +19,15 @@ class Number (Box):
     def __init__(self, x, y, id):
         Box.__init__(self,x, y, id)
         self.value = 0
-        self.rcv = ""
+        rcv = ""
     
-    def set_socket(self, rcv):
-        self.rcv = rcv
+    @staticmethod
+    def init_socket(r):
+        Number.rcv = r
         
     #get the value from pd
     def get_value(self):
-        temp = self.rcv.recv(32)
+        temp = Number.rcv.recv(32)
         self.value = int(temp[:(len(temp)-2)])
         return self.value
         

@@ -11,12 +11,11 @@ if __name__ == '__main__':
     print "ei man"
 
     
-def debug_number():
+#def debug_number():
     pd = Communication(False)
     pd.init_pd()
     
     n = Number(10, 10, 0)
-    n.set_socket(pd.rcv)
     command = "floatatom " + str(n.x) +  " " + str(n.y) + " 5 0 0 0 - - pyata ;"
     print command
     pd.send_pd(command)

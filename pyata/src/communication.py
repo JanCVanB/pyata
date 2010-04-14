@@ -15,7 +15,7 @@ from threading  import *
 from socket     import *
 from time       import *  
 from subprocess import *
-
+from box_classes.number import *
 
 
 
@@ -78,11 +78,17 @@ class Communication():
             self.rcv_socket.bind((self.host, self.rcv_port))
             self.rcv_socket.listen(1) 
             self.rcv, addr = self.rcv_socket.accept()
+            self.init_pyata()
             print "connecting with pd"
             return True
         except error, err: 
             print "Error connecting to %s:%d: %s" % (self.host, self.snd_port, err) 
             return False
+    
+    #init some socket variables
+    def init_pyata(self):
+        Number.init_socket(self.rcv)
+    
     
     #sending a command to pd
     def send_pd(self, commands):
@@ -108,6 +114,7 @@ class Communication():
         p = Popen(temp, shell=True)
         
         self.snd_socket.close() 
+        self.rcv_socket.close()
         print "closing connection with pd" 
 
         
