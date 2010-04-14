@@ -8,6 +8,10 @@ from communication import *
 
 
 if __name__ == '__main__':
+    print "ei man"
+
+    
+def debug_number():
     pd = Communication(False)
     pd.init_pd()
     
@@ -27,6 +31,20 @@ if __name__ == '__main__':
     
     
     command = n.increment()
+    print command
+    pd.send_pd(command)
+    sleep(2)
+    
+    print n.get_value()
+    
+    command = n.decrement()
+    print command
+    pd.send_pd(command)
+    sleep(2)
+    
+    print n.get_value()
+    
+    command = n.set(20)
     print command
     pd.send_pd(command)
     sleep(2)

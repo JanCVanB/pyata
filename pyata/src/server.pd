@@ -4,22 +4,23 @@
 #X msg 69 127 \; pd dsp 0;
 #N canvas 0 22 737 328 new 1;
 #X restore 201 32 pd new;
-#X obj 202 179 netsend;
-#X obj 221 132 r pyata;
-#X msg 287 162 disconnect;
-#X obj 344 103 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 252 179 netsend;
+#X obj 271 132 r pyata;
+#X msg 194 148 disconnect;
+#X obj 394 103 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X obj 265 32 netreceive 3000 0 old;
-#X obj 202 64 loadbang;
-#X msg 202 110 connect localhost 3001;
-#X obj 202 86 del 6000;
-#X floatatom 202 201 5 0 0 0 - - -;
-#X msg 221 155 send \$1;
+#X obj 252 64 loadbang;
+#X msg 252 110 connect localhost 3001;
+#X obj 252 86 del 6000;
+#X floatatom 252 201 5 0 0 0 - - -;
+#X msg 271 155 send \$1;
 #X connect 0 0 1 0;
 #X connect 4 0 12 0;
 #X connect 5 0 13 0;
 #X connect 6 0 4 0;
 #X connect 9 0 11 0;
+#X connect 9 0 6 0;
 #X connect 10 0 4 0;
 #X connect 11 0 7 0;
 #X connect 11 0 10 0;
