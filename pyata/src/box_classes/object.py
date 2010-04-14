@@ -24,11 +24,19 @@ class Object (Box):
     #edits this object
     def edit(self, label):
         command = self.unselect() #unselects
-        command += self.click() #clicks inside
+        
+        temp = self.click() #selects this
+        for cmd in temp:
+            command.append(cmd)
+        
         for i in label: #sends all key pressed
-            command += "key 1 " + str(ord(i)) + " 0 ; " 
-            command += "key 0 " + str(ord(i)) + " 0 ; " 
-        command += self.unselect() #unselects
+            command.append("key 1 " + str(ord(i)) + " 0 ; ") 
+            command.append("key 0 " + str(ord(i)) + " 0 ; ") 
+        
+        temp = self.unselect() #unselects this
+        for cmd in temp:
+            command.append(cmd)
+            
         return command
     
     #aux static function to debug this class

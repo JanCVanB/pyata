@@ -17,11 +17,11 @@ if __name__ == '__main__':
     pd.send_pd(command)
     sleep(2)
     
-    obj2 = Object(20, 20, "dac~", 0)
-    command = "obj " + str(obj2.x) + " " + str(obj2.x) + " " + obj2.label + ";"
-    print command
-    pd.send_pd(command)
-    sleep(2)
+    #obj2 = Object(20, 20, "dac~", 0)
+    #command = "obj " + str(obj2.x) + " " + str(obj2.x) + " " + obj2.label + ";"
+    #print command
+    #pd.send_pd(command)
+    #sleep(2)
     
     command = obj1.move(100, 100)
     print command
@@ -33,30 +33,17 @@ if __name__ == '__main__':
     pd.send_pd(command)
     sleep(2)
 
-    print "SHIFT!"
-    command = obj1.shift_select()
-    print command
-    pd.send_pd(command)
-    sleep(2)
+    #command = obj2.select()
+    #print command
+    #pd.send_pd(command)
+    #sleep(2)
     
-    command = obj2.shift_select()
+    command = obj1.edit("osc~")
     print command
     pd.send_pd(command)
-    sleep(2)
+    sleep(5)
     
-    command = obj2.shift_unselect()
-    print command
-    pd.send_pd(command)
-    sleep(2)
-
-    command = obj1.unselect()
-    print command
-    pd.send_pd(command)
-    sleep(2)
     
-    command = obj1.select()
-    print command
-    pd.send_pd(command)
-    sleep(2)
+    
     
     pd.finish_pd()

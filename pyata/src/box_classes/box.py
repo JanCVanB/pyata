@@ -52,6 +52,7 @@ class Box:
         command.append("mouseup " + str(self.x-2) + " " + str(self.y-2) + " 1 0 ;")
         return command
     
+    #deprecated!
     #method that selects this box with key shift pressed
     def shift_select (self):
         command = []
@@ -62,6 +63,7 @@ class Box:
         command.append("key 0 Shift_R 0 ;")
         return command
     
+    #deprecated!
     #method that unselects this box with key shift pressed
     def shift_unselect(self):
         command = []
