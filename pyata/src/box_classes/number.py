@@ -8,8 +8,8 @@
 ##########################################################
 ##########################################################
 
-from box import *
-
+from box    import *
+from socket import *
 
 
 
@@ -19,6 +19,16 @@ class Number (Box):
     def __init__(self, x, y, id):
         Box.__init__(self,x, y, id)
         self.value = 0
+        self.rcv = ""
+    
+    def set_socket(self, rcv):
+        self.rcv = rcv
+        
+    #get the value from pd
+    def get_value(self):
+        temp = self.rcv.recv(32)
+        self.value = int(temp[:(len(temp)-2)])
+        return self.value
         
     
     #edits this object
@@ -30,7 +40,7 @@ class Number (Box):
             command.append("key 0 " + str(ord(i)) + " 0 ; ")   
         command.append("key 1 10 0 ;") # press enter
         command.append("key 0 10 0 ;")
-        self.value = value # @TODO   
+        #self.value = self.get_value()
         return command
     
     #increments the lowest amount from the value of a number
@@ -39,7 +49,7 @@ class Number (Box):
         command.append("mouse " + str(self.x+1) + " " + str(self.y+1) + " 1 0 ;")
         command.append("motion " + str(self.x+1) + " " + str(self.y) + " 0 ;")
         command.append("mouseup " + str(self.x+1) + " " + str(self.y) + " 1 0 ;")
-        self.value = 0 # @TODO
+        #self.value = self.get_value()
         return command
     
     #decrements the lowest amount from the value of a numbe
@@ -48,7 +58,7 @@ class Number (Box):
         command.append("mouse " + str(self.x+1) + " " + str(self.y+1) + " 1 0 ;")
         command.append("motion " + str(self.x+1) + " " + str(self.y+2) + " 0 ;")
         command.append("mouseup " + str(self.x+1) + " " + str(self.y+2) + " 1 0 ;")
-        self.value = 0 # @TODO
+        #self.value = self.get_value()
         return command
     
     

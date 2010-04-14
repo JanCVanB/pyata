@@ -8,17 +8,32 @@ from communication import *
 
 
 if __name__ == '__main__':
-    # RECEBENDO AS INFORMAÇÕES DO PD PELA PORTA 3001!!!
-    print "iniciando socket"
-    s = socket(AF_INET, SOCK_STREAM)
-    s.bind(("localhost",3001))
-    s.listen(1)
-    c, addr = s.accept() 
-    while 1:
-        print c.recv(32)
+    pd = Communication(False)
+    pd.init_pd()
     
-
+    n = Number(10, 10, 0)
+    n.set_socket(pd.rcv)
+    command = "floatatom " + str(n.x) +  " " + str(n.y) + " 5 0 0 0 - - pyata ;"
+    print command
+    pd.send_pd(command)
+    sleep(2)
     
+    command = n.increment()
+    print command
+    pd.send_pd(command)
+    sleep(2)
+    
+    print n.get_value()
+    
+    
+    command = n.increment()
+    print command
+    pd.send_pd(command)
+    sleep(2)
+    
+    print n.get_value()
+    
+    pd.finish_pd()
     
     
   

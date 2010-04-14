@@ -21,7 +21,9 @@ from subprocess import *
 
 
 #variable that stores the port number
-PORT = 3000 
+RCV_PORT = 3001 
+#variable that stores the port number
+SND_PORT = 3000 
 #variable that stores the host
 HOST = "localhost"
 #replace this to where pd file is (COMPLETY DIRECTORY)
@@ -52,15 +54,18 @@ class RemotePd ( Thread ):
 
 
 #communication class
-class Communication(socket): 
+class Communication(): 
     
     #constructor
     def __init__(self, nogui): 
-        self._port = int(PORT) 
-        self._host = HOST 
+        self.snd_port = int(SND_PORT) 
+        self.rcv_port = int(RCV_PORT)
+        self.snd_socket = socket(AF_INET, SOCK_STREAM)
+        self.rcv_socket = socket(AF_INET, SOCK_STREAM)
+        self.host = HOST 
         self.thread=RemotePd(nogui)
-        socket.__init__(self)
         self.canvas = "pd-new"
+        self.rcv = ""
             
     #connecting to pd
     def init_pd(self): 
@@ -69,11 +74,14 @@ class Communication(socket):
         sleep(5)
         
         try: 
-            self.connect((self._host, self._port)) 
+            self.snd_socket.connect((self.host, self.snd_port))
+            self.rcv_socket.bind((self.host, self.rcv_port))
+            self.rcv_socket.listen(1) 
+            self.rcv, addr = self.rcv_socket.accept()
             print "connecting with pd"
             return True
         except error, err: 
-            print "Error connecting to %s:%d: %s" % (self._host, self._port, err) 
+            print "Error connecting to %s:%d: %s" % (self.host, self.snd_port, err) 
             return False
     
     #sending a command to pd
@@ -87,7 +95,7 @@ class Communication(socket):
                 for cmd in commands:
                     message += self.canvas + " " + cmd + " "
         
-            self.send(message)
+            self.snd_socket.send(message)
             return True
         except error, err: 
             print "Error sending message %s : %s" % (message, err) 
@@ -99,7 +107,7 @@ class Communication(socket):
         temp = "killall pd"
         p = Popen(temp, shell=True)
         
-        self.close() 
+        self.snd_socket.close() 
         print "closing connection with pd" 
 
         
