@@ -16,6 +16,7 @@ from socket     import *
 from time       import *  
 from subprocess import *
 from box_classes.number import *
+from box_classes.symbol import *
 
 
 
@@ -88,6 +89,7 @@ class Communication():
     #init some socket variables
     def init_pyata(self):
         Number.init_socket(self.rcv)
+        Symbol.init_socket(self.rcv)
     
     
     #sending a command to pd

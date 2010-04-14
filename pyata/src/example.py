@@ -3,6 +3,7 @@ from box_classes.box import *
 from box_classes.number import *
 from box_classes.message import *
 from box_classes.comment import *
+from box_classes.symbol import *
 from communication import *
 
 #file created just for debug tests
@@ -11,6 +12,24 @@ from communication import *
 
 if __name__ == '__main__':
     print "ei man"
+   
+   
+def debug_symbol():  
+    pd = Communication(False)
+    pd.init_pd()
+    
+    s = Symbol(10, 10, 0)
+    command = "symbolatom " + str(s.x) + " " + str(s.y) + " 10 0 0 0 - - pyata ;"
+    print command
+    pd.send_pd(command)
+    sleep(2)
+    
+    command = s.set("mesa")
+    print command
+    pd.send_pd(command)
+    sleep(2)
+    
+    pd.finish_pd()
     
     
     
@@ -19,7 +38,7 @@ def debug_comment():
     pd.init_pd()
     
     m = Message(10, 10, "alo", 0)
-    command = "text " + str(m.x)  + " " + str(m.y) + " " + m.text + " ; "
+    command = "text " + str(m.x)  + " " + str(m.y) + " " + m.text + " ;"
     print command
     pd.send_pd(command)
     sleep(2)
