@@ -8,12 +8,29 @@
 ##########################################################
 ##########################################################
 
+memory = [] #stores all objetcs that are inserted to pd
 
+def search (b):
+    i=0
+    
+    #seraching for a specific box in memory
+    for box in memory:
+        if b==box:
+            return i
+        i+=1
+    
+    #return -1 if not
+    if i==len(memory):
+        return -1
+    else:
+        return i
+   
+   
+         
 
 #box class itself
 class Box:
     #class variables (not instance variables
-    #memory = [] #stores all objetcs that are inserted to pd
     canvas = "pd-new " #stores the name of the canvas
     snd = "" #used to communicate to pd
 
@@ -25,8 +42,23 @@ class Box:
         self.inlet= self.get_number_inlets()
         self.outlet=self.get_number_outlets()
         self.create()
-        #Box.memory.append(self) 
     
+    def create(self):
+        memory.append(self) 
+    
+    def delete(self):
+        self.select()
+        command = Box.canvas + "cut ; "
+        Box.snd.send_pd(command)
+        
+        i=search(self)
+        
+        if (i != -1):
+            memory.pop(i)
+            print "funfou!"
+        else:
+            print "nao funfou!"
+
     #method that sets the canvas
     @staticmethod
     def set_canvas(nc):
@@ -67,13 +99,6 @@ class Box:
         command += Box.canvas + "mouseup " + str(self.x-2) + " " + str(self.y-2) + " 1 0 ; "
         Box.snd.send_pd(command)
     
-    def create(self):
-        print "all subclass must implement this"
-    
-    def delete(self):
-        self.select()
-        command = Box.canvas + "cut ; "
-        Box.snd.send_pd(command)
     
     #deprecated!
     #method that selects this box with key shift pressed

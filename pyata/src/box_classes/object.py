@@ -24,6 +24,7 @@ class Object (Box):
     def create(self):
         command = Box.canvas + "obj " + str(self.x) + " " + str(self.y) + " " + self.label + "; "
         Box.snd.send_pd(command)
+        Box.create(self)
 
     
     #edits this object

@@ -48,18 +48,21 @@ if __name__ == '__main__':
     c1.edit("como apagar objetos")
     obj1.delete()
     obj2.delete()
-    n1.delete()
-    m1.delete()
-    s1.delete()
+    #n1.delete()
+    #m1.delete()
+    #s1.delete()
     sleep(2)
     
     c1.edit("um exemplo de comofaze-los existir de novo!")
     obj1.create()
     obj2.create()
-    n1.create()
-    m1.create()
-    s1.create()
+    #n1.create()
+    #m1.create()
+    #s1.create()
     sleep(2)
+    
+    for box in memory:
+        print box
     
     
     

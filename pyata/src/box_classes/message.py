@@ -21,6 +21,7 @@ class Message (Box):
     def create(self):
         command = Box.canvas + "msg " + str(self.x) + " " + str(self.y) + " " + self.text + "; "
         Box.snd.send_pd(command)
+        Box.create(self)
     
     #edits this object
     def edit(self, text):

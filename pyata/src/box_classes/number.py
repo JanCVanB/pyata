@@ -26,6 +26,7 @@ class Number (Box):
     def create(self):
         command = Box.canvas + "obj " + str(self.x) + " " + str(self.y) + " nmb ; "
         Box.snd.send_pd(command)
+        Box.create(self)
     
     @staticmethod
     def init_socket(r):
