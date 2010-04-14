@@ -17,11 +17,14 @@ from box import *
 class Object (Box):
     #constructor
     def __init__(self, x, y, label, id=-1):
-        Box.__init__(self,x, y, id)
         self.label = label
+        Box.__init__(self,x, y, id)
+
+
+    def create(self):
         command = Box.canvas + "obj " + str(self.x) + " " + str(self.y) + " " + self.label + "; "
         Box.snd.send_pd(command)
-        
+
     
     #edits this object
     def edit(self, label):

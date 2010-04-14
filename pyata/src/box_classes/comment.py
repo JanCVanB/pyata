@@ -15,11 +15,13 @@ from box_classes.box import *
 class Comment (Box):
     #constructor
     def __init__(self, x, y,text, id=-1):
-        Box.__init__(self,x, y, id)
         self.text = text
+        Box.__init__(self,x, y, id)
+    
+    def create(self):
         command = Box.canvas + "text " + str(self.x) + " " + str(self.y) + " " + self.text + "; "
         Box.snd.send_pd(command)
-    
+
     #edits this object
     def edit(self, text):
         self.unselect() #unselects
@@ -32,8 +34,8 @@ class Comment (Box):
         Box.snd.send_pd(command)
         self.unselect() #unselects this
         self.text = text    
-        
-        
+    
+
     #aux static function to debug this class
     @staticmethod
     def debug():

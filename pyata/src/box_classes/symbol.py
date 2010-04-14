@@ -19,8 +19,10 @@ class Symbol (Box):
     
     #constructor
     def __init__(self, x, y, id=-1):
-        Box.__init__(self,x, y, id)
         self.text = "symbol"
+        Box.__init__(self,x, y, id)
+
+    def create(self):
         command = Box.canvas + "obj " + str(self.x) + " " + str(self.y) + " sym ; "
         Box.snd.send_pd(command)
     

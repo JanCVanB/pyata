@@ -20,11 +20,12 @@ class Number (Box):
     
     #constructor
     def __init__(self, x, y, id =-1):
-        Box.__init__(self,x, y, id)
         self.value = 0
+        Box.__init__(self,x, y, id)        
+
+    def create(self):
         command = Box.canvas + "obj " + str(self.x) + " " + str(self.y) + " nmb ; "
         Box.snd.send_pd(command)
-        
     
     @staticmethod
     def init_socket(r):
@@ -69,6 +70,7 @@ class Number (Box):
         #self.value = self.get_value()
         Box.snd.send_pd(command)
     
+
     
     
     #aux static function to debug this class

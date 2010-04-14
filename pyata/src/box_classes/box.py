@@ -12,9 +12,10 @@
 
 #box class itself
 class Box:
-    #class variable
-    canvas = "pd-new "
-    snd = ""
+    #class variables (not instance variables
+    #memory = [] #stores all objetcs that are inserted to pd
+    canvas = "pd-new " #stores the name of the canvas
+    snd = "" #used to communicate to pd
 
     #constructor of the class
     def __init__(self, x, y, id):
@@ -23,6 +24,8 @@ class Box:
         self.id=id
         self.inlet= self.get_number_inlets()
         self.outlet=self.get_number_outlets()
+        self.create()
+        #Box.memory.append(self) 
     
     #method that sets the canvas
     @staticmethod
@@ -62,6 +65,14 @@ class Box:
     def unselect(self):
         command  = Box.canvas + "mouse " + str(self.x-2) + " " + str(self.y-2) + " 1 0 ; "
         command += Box.canvas + "mouseup " + str(self.x-2) + " " + str(self.y-2) + " 1 0 ; "
+        Box.snd.send_pd(command)
+    
+    def create(self):
+        print "all subclass must implement this"
+    
+    def delete(self):
+        self.select()
+        command = Box.canvas + "cut ; "
         Box.snd.send_pd(command)
     
     #deprecated!
