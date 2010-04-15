@@ -8,19 +8,18 @@
 ##########################################################
 ##########################################################
 
-memory = [] #stores all objetcs that are inserted to pd
+memory_box = [] #stores all objetcs that are inserted to pd
 
-def search (b):
+def search_box (b):
     i=0
-    
     #seraching for a specific box in memory
-    for box in memory:
+    for box in memory_box:
         if b==box:
             return i
         i+=1
     
     #return -1 if not
-    if i==len(memory):
+    if i==len(memory_box):
         return -1
     else:
         return i
@@ -44,17 +43,18 @@ class Box:
         self.create()
     
     def create(self):
-        memory.append(self) 
+        #the rest of the code is defined in the subclasses
+        memory_box.append(self) 
     
     def delete(self):
         self.select()
         command = Box.canvas + "cut ; "
         Box.snd.send_pd(command)
         
-        i=search(self)
+        i=search_box(self)
         
         if (i != -1):
-            memory.pop(i)
+            memory_box.pop(i)
             print "funfou!"
         else:
             print "nao funfou!"

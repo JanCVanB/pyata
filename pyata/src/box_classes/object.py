@@ -39,6 +39,9 @@ class Object (Box):
         
         Box.snd.send_pd(command)
         self.unselect() #unselects this
+        #ajeita o indice atual do objeto na memoria do pd
+        temp = memory_box.pop(search_box(self))
+        memory_box.append(temp)
         self.label = label
         
     
