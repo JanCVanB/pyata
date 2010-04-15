@@ -17,7 +17,7 @@ if __name__ == '__main__':
     pd = Communication(False)
     pd.init_pd()
     
-    obj1 = Symbol(10, 10)
+    obj1 = Number(10, 10)
     obj2 = Object(100, 100, "dac~")
     wire1 = Connection(obj1, 0, obj2, 0)
     #print wire1.box_orig

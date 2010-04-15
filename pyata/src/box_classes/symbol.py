@@ -42,6 +42,10 @@ class Symbol (Box):
     def set(self, text): 
         self.click() #clicks
         command = ""
+        
+        for i in text: #delete all previous keys
+            command += Box.canvas + "key 1 8 0 ; " 
+            command += Box.canvas + "key 0 8 0 ; "  
         for i in text: #sends all key pressed
             command += Box.canvas + "key 1 " + str(ord(i)) + " 0 ; " 
             command += Box.canvas + "key 0 " + str(ord(i)) + " 0 ; "   

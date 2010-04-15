@@ -15,10 +15,10 @@ from threading  import *
 from socket     import *
 from time       import *  
 from subprocess import *
-from box_classes.box import *
-from box_classes.number import *
-from box_classes.symbol import *
-from box_classes.connection import *
+from basic_classes.box import *
+from basic_classes.number import *
+from basic_classes.symbol import *
+from basic_classes.connection import *
 
 
 
