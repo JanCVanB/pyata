@@ -18,6 +18,7 @@ from subprocess import *
 from box_classes.box import *
 from box_classes.number import *
 from box_classes.symbol import *
+from box_classes.connection import *
 
 
 
@@ -90,6 +91,7 @@ class Communication():
     #init some socket variables
     def init_pyata(self):
         Box.set_sender(self)
+        Connection.set_sender(self)
         Number.init_socket(self.rcv)
         Symbol.init_socket(self.rcv)
     
@@ -109,8 +111,8 @@ class Communication():
         temp = "killall pd"
         p = Popen(temp, shell=True)
         
-        self.rcv_socket.close()
         self.snd_socket.close() 
+        self.rcv_socket.close()
         print "closing connection with pd" 
 
         
