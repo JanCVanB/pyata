@@ -28,8 +28,6 @@ def search_connections (c):
     #return -1 if not
     if i==len(memory_connections):
         return -1
-    else:
-        return i
 
 
 
@@ -54,7 +52,7 @@ class Connection:
         if (b1 > -1) & (b2 > -1):
             #get the state before inserting the connection
             self.snd.send_pd("pd-new menusave ; ")
-            sleep(0.1)
+            sleep(0.01)
             t1 = self.snd.get_file()
 
             #try to build the connection
@@ -63,14 +61,8 @@ class Connection:
             
             #get the state after insertin the connection
             self.snd.send_pd("pd-new menusave ; ")
-            sleep(0.1)
+            sleep(0.01)
             t2 = self.snd.get_file()
-            
-            print t1
-            print
-            print "------"
-            print
-            print t2
             
             #verifies if changed
             if t1 != t2:
@@ -87,7 +79,7 @@ class Connection:
         if (b1 > -1) & (b2 > -1):
             #get the state before removing the connection
             self.snd.send_pd("pd-new menusave ; ")
-            sleep(0.1)
+            sleep(0.01)
             t1 = self.snd.get_file()
             
             #try to remove the connection
@@ -96,20 +88,13 @@ class Connection:
             
             #get the state after removing the connection
             self.snd.send_pd("pd-new menusave ; ")
-            sleep(0.1)
+            sleep(0.01)
             t2 = self.snd.get_file()
-            
-            print t1
-            print
-            print "------"
-            print
-            print t2
             
             #verifies if changed
             if t1 != t2:
                 i=search_connections(self)
-                #print i
-                memory_box.pop(i)
+                memory_connections.pop(i)
                 print "funfou!"
             else:
                 print "nao funfou!"
