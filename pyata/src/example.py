@@ -13,6 +13,72 @@ from communication import *
 
 
 if __name__ == '__main__':
+    pd = Communication(False)
+    pd.init_pd()
+    
+    o1 = Number(10, 10)
+    o2 = Number(100, 100)
+    c1 = Connection(o1, 0, o2, 0)
+    
+    for c in memory_connections:
+        print c
+    sleep(2)
+
+    print "---"
+    
+    cmt = Comment(50, 50, "teste")
+    c2 = Connection(cmt, 0, o2, 0)
+    for c in memory_connections:
+        print c
+    sleep(2)    
+    
+    print "---"
+    c2.delete()
+    for c in memory_connections:
+        print c
+    sleep(2)
+    
+    print "---"    
+    c1.delete()
+    for c in memory_connections:
+        print c
+    sleep(2)
+    
+    pd.send_pd("pd-new clear ; ")
+    pd.send_pd("pd-new menusave ; ")
+    pd.finish_pd()
+    
+    
+    
+    
+    
+def teste3():
+    pd = Communication(False)
+    pd.init_pd()
+    
+    o1 = Number(10, 10)
+    o2 = Number(100, 100)
+    pd.send_pd("pd-new menusave ; ")
+    sleep(0.01)
+    
+    t1 = pd.get_file()
+    
+    Connection(o1, 0, o2, 0)
+    pd.send_pd("pd-new menusave ; ")
+    sleep(0.01)
+    
+    t2 = pd.get_file()
+    
+    if (t1 == t2):
+        print "iguais"
+    else:
+        print "nao iguais"
+    
+    pd.send_pd("pd-new clear ; ")
+    pd.send_pd("pd-new menusave ; ")
+    pd.finish_pd()
+    
+def test2():
     print "ei man"
     pd = Communication(False)
     pd.init_pd()

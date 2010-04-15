@@ -8,6 +8,10 @@
 ##########################################################
 ##########################################################
 
+
+#from connection import *
+
+
 memory_box = [] #stores all objetcs that are inserted to pd
 
 def search_box (b):
@@ -122,6 +126,13 @@ class Box:
     # @TODO gets the number of inlet of the object
     def get_number_outlets (self):
         return 0
+    
+    
+    #def connect(self, outlet, box_dest, inlet):
+        #Connection(self, outlet, box, inlet)
+    #def disconnect(self, outlet, box_dest, inlet):
+        
+        
         
     #aux static function to debug this class
     @staticmethod

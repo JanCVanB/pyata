@@ -8,9 +8,14 @@
 ##########################################################
 
 from box import *
+from time       import *  
 
 
 memory_connections = []
+
+
+    
+
 
 def search_connections (c):
     i=0   
@@ -40,37 +45,76 @@ class Connection:
         self.inlet = inlet
         self.create()
         
-    
+        
     #creates a connection in Pd    
     def create(self):
         b1 = search_box(self.box_orig)
         b2 = search_box(self.box_dest)
 
         if (b1 > -1) & (b2 > -1):
-            print "b1 " + str(b1) + " b2 " + str(b2)
+            #get the state before inserting the connection
+            self.snd.send_pd("pd-new menusave ; ")
+            sleep(0.1)
+            t1 = self.snd.get_file()
+
+            #try to build the connection
             command = Connection.canvas + "connect " + str(b1) + " " + str(self.outlet) + " " + str(b2) + " " + str(self.inlet) + " ; "
             Connection.snd.send_pd(command)
             
-            #se ainda nao existir
-            i=search_connections(self)
-            if (i == -1):
+            #get the state after insertin the connection
+            self.snd.send_pd("pd-new menusave ; ")
+            sleep(0.1)
+            t2 = self.snd.get_file()
+            
+            print t1
+            print
+            print "------"
+            print
+            print t2
+            
+            #verifies if changed
+            if t1 != t2:
                 memory_connections.append(self)
+                print "funfou"
+            else:
+                print "nao funfou"
+
     
     #creates a connection in Pd    
     def delete(self):
         b1 = search_box(self.box_orig)
         b2 = search_box(self.box_dest)
         if (b1 > -1) & (b2 > -1):
+            #get the state before removing the connection
+            self.snd.send_pd("pd-new menusave ; ")
+            sleep(0.1)
+            t1 = self.snd.get_file()
+            
+            #try to remove the connection
             command = Connection.canvas + "disconnect " + str(b1) + " " + str(self.outlet) + " " + str(b2) + " " + str(self.inlet) + " ; "
             Connection.snd.send_pd(command)
             
-            #se ja existir
-            i=search_connections(self)
-            if (i != -1):
-                memory_connections.pop(i)
+            #get the state after removing the connection
+            self.snd.send_pd("pd-new menusave ; ")
+            sleep(0.1)
+            t2 = self.snd.get_file()
+            
+            print t1
+            print
+            print "------"
+            print
+            print t2
+            
+            #verifies if changed
+            if t1 != t2:
+                i=search_connections(self)
+                #print i
+                memory_box.pop(i)
                 print "funfou!"
             else:
                 print "nao funfou!"
+            
+            
         
     #method that sets the canvas
     @staticmethod

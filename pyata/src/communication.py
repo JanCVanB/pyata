@@ -67,6 +67,7 @@ class Communication():
         self.rcv_socket = socket(AF_INET, SOCK_STREAM)
         self.host = HOST 
         self.thread=RemotePd(nogui)
+        self.file = open(SERVER_DIR+"/server.pd","r")
         #self.canvas = "pd-new"
         self.rcv = ""
             
@@ -113,8 +114,20 @@ class Communication():
         
         self.snd_socket.close() 
         self.rcv_socket.close()
+        self.file.close()
         print "closing connection with pd" 
 
+    
+    #returns the useful content of a file
+    def get_file(self):
+        self.file.seek(0)
+        text = self.file.read()
+        i = text.find("new")
+        text = text[(i+7):(len(text))]
+        i = text.find("pd new;")
+        text = text[0:(i-18)]
+        
+        return text
         
     #setting the canvas to where the messages are going
     def set_canvas(self, canvas):
