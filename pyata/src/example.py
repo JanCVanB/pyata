@@ -18,6 +18,41 @@ if __name__ == '__main__':
     
     o1 = Number(10, 10)
     o2 = Number(100, 100)
+    connect(o1, 0, o2, 0)
+    sleep(2)
+    
+    disconnect(o1, 0, o2, 0)
+    sleep(2)
+    
+    connect(Number(50, 50), 0, o2, 0)
+    for c in memory_connections:
+        print c
+    sleep(2)
+    
+    
+    connect(o2, 0, Number(50, 50), 0)
+    for c in memory_connections:
+        print c
+    sleep(2)
+    
+    
+    connect(o2, 0, o1, 0)
+    for c in memory_connections:
+        print c
+    sleep(2)
+    
+    
+    pd.send_pd("pd-new clear ; ")
+    pd.send_pd("pd-new menusave ; ")
+    pd.finish_pd()
+ 
+    
+def teste4():
+    pd = Communication(False)
+    pd.init_pd()
+    
+    o1 = Number(10, 10)
+    o2 = Number(100, 100)
     c1 = Connection(o1, 0, o2, 0)
     
     for c in memory_connections:
