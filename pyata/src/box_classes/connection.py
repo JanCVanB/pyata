@@ -30,20 +30,6 @@ def disconnect(b1, outlet, b2, inlet):
 
 
 #searchs a generic connection
-#def search_connections (c):
-#    i=0   
-#    #seraching for a specific box in memory
-#    for connections in memory_connections:
-#        if c==connections:
-#            return i
-#        i+=1
-    
-    #return -1 if not
-#    if i==len(memory_connections):
-#        return -1
-
-
-#searchs a generic connection
 def search_connections (b1, o, b2, i):
     i=0   
     #seraching for a specific box in memory
@@ -79,9 +65,7 @@ class Connection:
 
         if (b1 > -1) & (b2 > -1):
             #get the state before inserting the connection
-            command = Connection.canvas + "menusave ; "
-            Connection.snd.send_pd(command)
-            sleep(0.01)#alterar o tempo de espera aqui
+            Connection.snd.save_state(Connection.canvas)
             t1 = self.snd.get_file()
 
             #try to build the connection
@@ -89,9 +73,7 @@ class Connection:
             Connection.snd.send_pd(command)
             
             #get the state after insertin the connection
-            command = Connection.canvas + "menusave ; "
-            Connection.snd.send_pd(command)
-            sleep(0.01)#alterar o tempo de espera aqui
+            Connection.snd.save_state(Connection.canvas)
             t2 = self.snd.get_file()
             
             #verifies if changed
@@ -108,9 +90,7 @@ class Connection:
         b2 = search_box(self.box_dest)
         if (b1 > -1) & (b2 > -1):
             #get the state before removing the connection
-            command = Connection.canvas + "menusave ; "
-            Connection.snd.send_pd(command)
-            sleep(0.01) #alterar o tempo de espera aqui
+            Connection.snd.save_state(Connection.canvas)
             t1 = self.snd.get_file()
             
             #try to remove the connection
@@ -118,9 +98,7 @@ class Connection:
             Connection.snd.send_pd(command)
             
             #get the state after removing the connection
-            command = Connection.canvas + "menusave ; "
-            Connection.snd.send_pd(command)
-            sleep(0.01) #alterar o tempo de espera aqui
+            Connection.snd.save_state(Connection.canvas)
             t2 = self.snd.get_file()
             
             #verifies if changed

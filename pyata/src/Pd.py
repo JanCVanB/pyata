@@ -32,11 +32,13 @@ class Pd():
         
     #finalizando a api
     def quit(self):
+        self.clear()
+        self.save()
         self.c.finish_pd()
         
     #salvando o arquivo
     def save(self):
-        self.c.send_pd(Box.canvas + "menusave ; ")
+        self.c.save_state(Box.canvas)
         
     #cleans the patch
     def clear(self):

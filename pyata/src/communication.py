@@ -123,6 +123,10 @@ class Communication():
             return False   
 
     
+    def save_state(self, canvas):
+        self.snd_socket.send(canvas + "menusave ; ")
+        sleep(0.1)
+    
     #returns the useful content of a file
     def get_file(self):
         self.file.seek(0)

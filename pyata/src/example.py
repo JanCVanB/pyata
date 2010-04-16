@@ -9,7 +9,6 @@ from Pd import *
 if __name__ == '__main__':
     pd = Pd()
     pd.init()
-    pd.clear()
     o1 = Object(10, 10, "osc~ 440")
     o2 = Object(100, 100, "dac~")
     connect(o1, 0, o2, 0)
@@ -19,20 +18,21 @@ if __name__ == '__main__':
     
     pd.editmode(True)
     disconnect(o1, 0, o2, 0)
-    sleep(1)
+    #sleep(1)
     
     o2.edit("fiddle~")
     connect(Number(50, 50), 0, o2, 0)
     print pd.get_connection_list()
-    sleep(1)
+    #print 1
+    #sleep(1)
     
     o1.move(300, 300)
     connect(o2, 1, o1, 0)
     print pd.get_connection_list()
-    sleep(1)
+    #print 2
+    #sleep(1)
     
-    print pd.get_box_list()
-    
+    #print pd.get_box_list()
     pd.quit()
     
     
