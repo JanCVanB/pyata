@@ -109,13 +109,18 @@ class Communication():
 
     #closing connection
     def finish_pd(self): 
-        temp = "killall pd"
-        p = Popen(temp, shell=True)
-        
-        self.snd_socket.close() 
-        self.rcv_socket.close()
-        self.file.close()
-        print "closing connection with pd" 
+        try: 
+            temp = "killall pd"
+            p = Popen(temp, shell=True)
+            
+            self.snd_socket.close() 
+            self.rcv_socket.close()
+            self.file.close()
+            print "closing connection with pd" 
+            return True
+        except error, err: 
+            print "Error sending message %s : %s" % (message, err) 
+            return False   
 
     
     #returns the useful content of a file

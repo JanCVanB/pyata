@@ -2,10 +2,12 @@
 #X obj 72 48 loadbang;
 #X msg 71 78 \; pd dsp 1;
 #X msg 69 127 \; pd dsp 0;
-#N canvas 0 27 737 328 new 1;
-#X obj 254 218 dac~;
-#X obj 253 146 osc~ 440;
-#X connect 1 0 0 0;
+#N canvas 70 63 737 328 new 1;
+#X obj 299 299 osc~ 440;
+#X obj 100 100 fiddle~;
+#X obj 50 50 nmb;
+#X connect 1 1 0 0;
+#X connect 2 0 1 0;
 #X restore 201 32 pd new;
 #X obj 252 179 netsend;
 #X obj 271 132 r pyata;

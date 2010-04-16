@@ -1,4 +1,15 @@
 
+
+##########################################################
+##########################################################
+# description: main class that emulates Pd
+#
+# autor: jeraman
+# date: 16/04/2010
+##########################################################
+##########################################################
+
+
 from basic_classes.box import *
 from basic_classes.object import *
 from basic_classes.number import *
@@ -44,4 +55,12 @@ class Pd():
             self.c.send_pd("; pd dsp 0 ; ")
         else:
             self.c.send_pd("; pd dsp 1 ; ")
+   
+   #returns the memory available in Pd     
+    def get_box_list(self):
+        return memory_box
+    
+    #return the connections available in Pd
+    def get_connection_list(self):
+        return memory_connections
     
