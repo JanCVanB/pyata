@@ -1,12 +1,6 @@
 
-from basic_classes.box import *
-from basic_classes.object import *
-from basic_classes.number import *
-from basic_classes.message import *
-from basic_classes.comment import *
-from basic_classes.symbol import *
-from basic_classes.connection import *
-from communication import *
+from Pd import *
+
 
 #file created just for debug tests
 
@@ -15,6 +9,15 @@ from communication import *
 if __name__ == '__main__':
     pd = Communication(False)
     pd.init_pd()
+    
+    #funcoes basicas
+    
+    pd.send_pd("pd-new clear ; ") #limpando o patch
+    pd.send_pd("pd-new menusave ; ") #salavando
+    #pd.send_pd("pd-new editmode 0 ; ") #tirando o editmode CUIDADO: ISSO E UM TOGGLE!!!
+    pd.send_pd("pd-new editmode 1 ; ") #ativando o editmode   
+    #pd.send_pd("; pd dsp 1 ; ") #ligando o dsp
+    #pd.send_pd("; pd dsp 0 ; ") #desligando o dsp
     
     o1 = Number(10, 10)
     o2 = Number(100, 100)
@@ -29,13 +32,16 @@ if __name__ == '__main__':
         print c
     sleep(2)
     
-    
-    connect(o2, 0, Number(50, 50), 0)
+    o1.move(300, 300)
+    connect(o2, 1, o1, 0)
     for c in memory_connections:
         print c
     sleep(2)
     
-    
+    pd.send_pd("pd-new editmode 0 ; ")
+    o2.set(400)
+    print o2.value
+    pd.send_pd("pd-new editmode 1 ; ")
     connect(o2, 0, o1, 0)
     for c in memory_connections:
         print c
@@ -46,6 +52,22 @@ if __name__ == '__main__':
     pd.send_pd("pd-new menusave ; ")
     pd.finish_pd()
  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 def teste4():
     pd = Communication(False)
