@@ -32,7 +32,7 @@ HOST = "localhost"
 #replace this to where pd file is (COMPLETY DIRECTORY)
 PD_DIR = ""
 #replace this to where server.pd is (COMPLETY DIRECTORY)
-SERVER_DIR = "/home/jeraman/workspace/pyata/src"
+SERVER_DIR = "/home/jeraman/workspace/pyata/src/aux_patches"
 
 
 
