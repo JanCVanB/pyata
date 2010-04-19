@@ -31,11 +31,14 @@ class Pd():
     def init(self):
         self.c.init_pd()
         self.clear()
+        self.dsp(True)
+        self.editmode(True)
         
     #finalizando a api
     def quit(self):
         self.clear()
         self.save()
+        self.dsp(False)
         self.c.finish_pd()
         
     #salvando o arquivo

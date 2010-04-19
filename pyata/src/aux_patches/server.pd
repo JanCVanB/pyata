@@ -3,7 +3,6 @@
 #X msg 71 78 \; pd dsp 1;
 #X msg 69 127 \; pd dsp 0;
 #N canvas 19 45 1210 219 new 1;
-#X obj 300 100 dac~;
 #X restore 201 32 pd new;
 #X obj 252 179 netsend;
 #X obj 271 132 r pyata;

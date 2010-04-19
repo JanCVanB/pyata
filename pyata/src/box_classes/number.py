@@ -41,9 +41,19 @@ class Number (Box):
     
     #edits this object
     def set(self, value): 
+        #sets no-edit mode
+        command  = Box.canvas + "editmode 1 ; "
+        command += Box.canvas + "editmode 0 ; "
+        Box.snd.send_pd(command)
+        
         self.click() #clicks
         
-        command = ""
+        #str_value = str(self.value) # transforms the value to str
+        #for i in str_value: #delete all previous keys
+        #    command += Box.canvas + "key 1 8 0 ; " 
+        #    command += Box.canvas + "key 0 8 0 ; " 
+        #Box.snd.send_pd(command)
+        
         str_value = str(value) # transforms the value to str
         for i in str_value: #sends all key pressed
             command += Box.canvas + "key 1 " + str(ord(i)) + " 0 ; "
@@ -52,23 +62,39 @@ class Number (Box):
         
         command  = Box.canvas + "key 1 10 0 ; " # press enter
         command += Box.canvas + "key 0 10 0 ; "
-        #self.value = self.get_value()
+        
+        #sets edit mode
+        command += Box.canvas + "editmode 1 ; "
+        
         Box.snd.send_pd(command)
     
     #increments the lowest amount from the value of a number
     def increment(self):
+        #sets no-edit mode
+        command  = Box.canvas + "editmode 1 ; "
+        command += Box.canvas + "editmode 0 ; "
+        Box.snd.send_pd(command)
+        
         command  = Box.canvas + "mouse " + str(self.x+1) + " " + str(self.y+1) + " 1 0 ; "
         command += Box.canvas + "motion " + str(self.x+1) + " " + str(self.y) + " 0 ; "
         command += Box.canvas + "mouseup " + str(self.x+1) + " " + str(self.y) + " 1 0 ; "
         #self.value = self.get_value()
+        
+        command += Box.canvas + "editmode 1 ; "
         Box.snd.send_pd(command)
     
     #decrements the lowest amount from the value of a numbe
     def decrement(self):
+        #sets no-edit mode
+        command  = Box.canvas + "editmode 1 ; "
+        command += Box.canvas + "editmode 0 ; "
+        Box.snd.send_pd(command)
+        
         command  = Box.canvas + "mouse " + str(self.x+1) + " " + str(self.y+1) + " 1 0 ; "
         command += Box.canvas + "motion " + str(self.x+1) + " " + str(self.y+2) + " 0 ; "
         command += Box.canvas + "mouseup " + str(self.x+1) + " " + str(self.y+2) + " 1 0 ; "
         #self.value = self.get_value()
+        command += Box.canvas + "editmode 1 ; "
         Box.snd.send_pd(command)
     
 

@@ -33,17 +33,21 @@ class Symbol (Box):
         
     #get the value from pd
     def get_value(self):
-        temp = Number.rcv.recv(32)
+        temp = Symbol.rcv.recv(32)
         self.text = temp[:(len(temp)-2)]
         return self.value
         
     
     #edits this object
     def set(self, text): 
-        self.click() #clicks
-        command = ""
+        #sets no-edit mode
+        command  = Box.canvas + "editmode 1 ; "
+        command += Box.canvas + "editmode 0 ; "
+        Box.snd.send_pd(command)
         
-        for i in text: #delete all previous keys
+        self.click() #clicks
+        
+        for i in self.text: #delete all previous keys
             command += Box.canvas + "key 1 8 0 ; " 
             command += Box.canvas + "key 0 8 0 ; "  
         for i in text: #sends all key pressed
@@ -53,6 +57,7 @@ class Symbol (Box):
         command  = Box.canvas + "key 1 10 0 ;" # press enter
         command += Box.canvas + "key 0 10 0 ;"
         #self.value = self.get_value()
+        command += Box.canvas + "editmode 1 ; "
         Box.snd.send_pd(command)
     
     
