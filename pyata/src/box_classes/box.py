@@ -9,8 +9,6 @@
 ##########################################################
 
 
-#from connection import *
-
 
 memory_box = [] #stores all objetcs that are inserted to pd
 
@@ -28,15 +26,15 @@ def search_box (b):
     else:
         return i
    
-   
+
          
 
 #box class itself
 class Box:
-    #class variables (not instance variables
+    # class variables (not instance variables
     canvas = "pd-new " #stores the name of the canvas
     snd = "" #used to communicate to pd
-
+   
     #constructor of the class
     def __init__(self, x, y, id):
         self.x=x
@@ -87,7 +85,6 @@ class Box:
         command += Box.canvas + "mouseup " + str(new_x) + " " + str(new_y) + " 1 0 ; "
         self.x=new_x
         self.y=new_y
-        print (command )
         Box.snd.send_pd(command)
     
     #method that selects this box
@@ -116,7 +113,7 @@ class Box:
     def shift_unselect(self):
         Box.snd.send_pd( Box.canvas + "key 1 Shift_R 0 ; " )
         self.click()
-        Box.snd.send_pd( Box.canvas + "key 0 Shift_R 0 ; " )
+        Box.nd_pd( Box.canvas + "key 0 Shift_R 0 ; " )
         
     
     # @TODO gets the number of inlet of the object

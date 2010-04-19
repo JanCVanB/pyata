@@ -59,6 +59,10 @@
   
   
   
+  
+  
+  
+  
   <pydev_property name="org.python.pydev.PYTHON_PROJECT_VERSION">python 2.5</pydev_property>
   
   
@@ -118,9 +122,25 @@
   
   
   
+  
+  
+  
+  
   <pydev_pathproperty name="org.python.pydev.PROJECT_SOURCE_PATH">
+    
+    
+    
+    
     <path>/pyata/src</path>
+    
+    
+    
+    
     <path>/pyata/aux_boxes</path>
+    
+    
+  
+  
   </pydev_pathproperty>
   
   
@@ -151,6 +171,10 @@
   
   
   
+  
+  
+
+
 
 
 

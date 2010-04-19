@@ -10,14 +10,16 @@
 ##########################################################
 
 
+
 from basic_classes.box import *
 from basic_classes.object import *
-from basic_classes.number import *
 from basic_classes.message import *
-from basic_classes.comment import *
+from basic_classes.number import *
 from basic_classes.symbol import *
+from basic_classes.comment import *
 from basic_classes.connection import *
 from communication import *
+
 
 
 class Pd():
@@ -43,6 +45,8 @@ class Pd():
     #cleans the patch
     def clear(self):
         self.c.send_pd(Box.canvas + "clear ; ")
+        memory_box = []
+        memory_connections = []
     
     #modifies the editmode. receives a boolean.
     def editmode(self, on_off):
