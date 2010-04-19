@@ -32,7 +32,7 @@ if __name__ == '__main__':
     #print 2
     #sleep(1)
     
-    #print pd.get_box_list()
+    print pd.get_box_list()
     pd.quit()
     
     
