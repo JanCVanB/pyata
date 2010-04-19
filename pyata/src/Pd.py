@@ -45,8 +45,10 @@ class Pd():
     #cleans the patch
     def clear(self):
         self.c.send_pd(Box.canvas + "clear ; ")
-        memory_box = []
-        memory_connections = []
+        del memory_box[:]  
+        del memory_connections[:]  
+        
+        
     
     #modifies the editmode. receives a boolean.
     def editmode(self, on_off):

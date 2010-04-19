@@ -81,11 +81,12 @@ class Box:
     # method that moves this box   
     def move (self, new_x, new_y):
         command  = Box.canvas + "mouse " + str(self.x+1) + " " + str(self.y+1) + " 1 0 ; "
-        command += Box.canvas + "motion " + str(new_x) + " " + str(new_y) + " 0 ; "
-        command += Box.canvas + "mouseup " + str(new_x) + " " + str(new_y) + " 1 0 ; "
+        command += Box.canvas + "motion " + str(new_x+1) + " " + str(new_y+1) + " 0 ; "
+        command += Box.canvas + "mouseup " + str(new_x+1) + " " + str(new_y+1) + " 1 0 ; "
         self.x=new_x
         self.y=new_y
         Box.snd.send_pd(command)
+        self.unselect()
     
     #method that selects this box
     def select (self):
