@@ -38,6 +38,17 @@ class Message (Box):
         temp = memory_box.pop(search_box(self))
         memory_box.append(temp)
         self.text = text  
+    
+    
+    def click(self):
+        #sets no-edit mode
+        command  = Box.canvas + "editmode 1 ; "
+        command += Box.canvas + "editmode 0 ; "
+        Box.snd.send_pd(command)
+        Box.click(self)
+        #sets edit mode
+        command  = Box.canvas + "editmode 1 ; "
+        Box.snd.send_pd(command)
         
     
     #aux static function to debug this class
