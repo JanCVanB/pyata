@@ -17,7 +17,8 @@ memory_connections = []
 
 #connects two generic boxes
 def connect (b1, outlet, b2, inlet):
-    Connection(b1, outlet, b2, inlet)
+    c = Connection(b1, outlet, b2, inlet)
+    return c.status 
 
 
 #disconnect a connection
@@ -26,7 +27,9 @@ def disconnect(b1, outlet, b2, inlet):
     i = search_connections(b1, 0, b2, 0)
     #se realmente existir
     if i>-1:
-        memory_connections[i].delete()
+        return memory_connections[i].delete()
+    else:
+        return False
 
 
 #searchs a generic connection
@@ -55,7 +58,7 @@ class Connection:
         self.outlet = outlet
         self.box_dest = box_dest
         self.inlet = inlet
-        self.create()
+        self.status = self.create()
         
         
     #creates a connection in Pd    
@@ -79,9 +82,9 @@ class Connection:
             #verifies if changed
             if t1 != t2:
                 memory_connections.append(self)
-                print "funfou"
+                return True
             else:
-                print "nao funfou"
+                return False
 
     
     #creates a connection in Pd    
@@ -105,9 +108,9 @@ class Connection:
             if t1 != t2:
                 i=search_connections(self.box_orig, self.outlet, self.box_dest, self.inlet)
                 memory_connections.pop(i)
-                print "funfou"
+                return True
             else:
-                print "nao funfou"
+                return False
             
             
         

@@ -40,9 +40,11 @@ class Box:
         self.x=x
         self.y=y
         self.id=id
-        self.inlet= self.get_number_inlets()
-        self.outlet=self.get_number_outlets()
         self.create()
+        self.inlets = 0
+        self.outlets = 0
+        #self.inlet= self.verify_inlets()
+        #self.outlet=self.verify_outlets()
     
     def create(self):
         #the rest of the code is defined in the subclasses
@@ -67,10 +69,10 @@ class Box:
                 Box.snd.send_pd(command); 
                 sleep(0.01)
  
-            return r
+            return True
                 
         else:
-            print "nao funfou!"
+            print False
         
 
     #method that sets the canvas
@@ -129,20 +131,52 @@ class Box:
         Box.nd_pd( Box.canvas + "key 0 Shift_R 0 ; " )
         
     
-    # @TODO gets the number of inlet of the object
-    def get_number_inlets (self):
-        return 0
-    
-    # @TODO gets the number of inlet of the object
-    def get_number_outlets (self):
-        return 0
-    
-    
-    #def connect(self, outlet, box_dest, inlet):
-        #Connection(self, outlet, box, inlet)
-    #def disconnect(self, outlet, box_dest, inlet):
+    #gets the number of inlets of the object
+    def verify_inlets (self):
+        #import dinamico pra evitar problema de referencia ciclica
+        from connection import Connection, connect
+        from object import Object
         
+        #building an inlet test
+        inlet = Object(self.x, self.y-30, "inlet")
+        finished = False
         
+        #tries to connect every single inlet to the inlet above
+        n_inlets = -1
+        while not(finished):
+            n_inlets = n_inlets+1
+            #if fails on connect, finishes the interaction
+            finished = not (connect(inlet, 0, self, n_inlets))
+        inlet.delete()
+        
+        self.inlets = n_inlets
+        
+        return n_inlets
+    
+    
+    #gets the number of outlets of the object
+    def verify_outlets (self):
+        #import dinamico pra evitar problema de referencia ciclica
+        from connection import Connection, connect
+        from object import Object
+        
+        #building an outlet test
+        outlet = Object(self.x, self.y-30, "outlet")
+        finished = False
+        
+        #tries to connect every single outlet to the outlet above
+        n_outlets = -1
+        while not(finished):
+            n_outlets = n_outlets+1
+            #if fails on connect, finishes the interaction
+            finished = not (connect(self, 0, outlet, n_outlets))
+        outlet.delete()
+        
+        self.outlets = n_outlets
+        
+        return n_outlets
+    
+
         
     #aux static function to debug this class
     @staticmethod
