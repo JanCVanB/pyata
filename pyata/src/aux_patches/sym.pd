@@ -1,11 +1,13 @@
-#N canvas 716 184 450 300 10;
+#N canvas 151 173 450 300 10;
 #X obj 101 44 inlet;
-#X obj 139 163 outlet;
-#X obj 203 78 cnv 15 100 60 empty empty empty 20 12 0 14 -233017 -66577
-0;
-#X symbolatom 71 163 10 0 0 0 - - -;
 #X symbolatom 101 101 10 0 0 0 - - -;
-#X connect 0 0 4 0;
-#X connect 4 0 3 0;
-#X connect 4 0 1 0;
+#X obj 193 53 id;
+#X obj 193 156 send pyata;
+#X obj 101 155 outlet;
+#X obj 193 117 pack s f;
+#X connect 0 0 1 0;
+#X connect 1 0 4 0;
+#X connect 1 0 5 0;
+#X connect 2 0 5 1;
+#X connect 5 0 3 0;
 #X coords 0 -1 1 1 64 18 1 100 100;

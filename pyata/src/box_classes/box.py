@@ -8,7 +8,7 @@
 ##########################################################
 ##########################################################
 
-
+from time import *
 
 memory_box = [] #stores all objetcs that are inserted to pd
 
@@ -56,10 +56,22 @@ class Box:
         i=search_box(self)
         
         if (i != -1):
-            memory_box.pop(i)
-            print "funfou!"
+            r = memory_box.pop(i)
+        
+            #ajustando os ids dos gui restantes apos remover um elemento
+            #command = ""
+            #print "i " + str(i)
+            for id in range(i, len(memory_box)):
+                command = "decrement " + str(id+2) + " ; "
+                #print command
+                Box.snd.send_pd(command); 
+                sleep(0.01)
+ 
+            return r
+                
         else:
             print "nao funfou!"
+        
 
     #method that sets the canvas
     @staticmethod

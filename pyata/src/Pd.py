@@ -19,6 +19,7 @@ from basic_classes.symbol import *
 from basic_classes.comment import *
 from basic_classes.connection import *
 from communication import *
+from gui_updater import *        
 
 
 
@@ -26,6 +27,7 @@ class Pd():
     #construtor
     def __init__(self):
         self.c = Communication(False)
+        self.b = ""
     
     #inicializando a api
     def init(self):
@@ -34,12 +36,17 @@ class Pd():
         self.dsp(True)
         self.editmode(True)
         
+        self.b = GuiUpdater(self.c.rcv)
+        self.b.start()
+        
     #finalizando a api
     def quit(self):
         self.clear()
         self.save()
         self.dsp(False)
+        GuiUpdater.finish = True
         self.c.finish_pd()
+
         
     #salvando o arquivo
     def save(self):

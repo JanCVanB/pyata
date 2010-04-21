@@ -27,6 +27,9 @@ class Number (Box):
         command = Box.canvas + "obj " + str(self.x) + " " + str(self.y) + " nmb ; "
         Box.snd.send_pd(command)
         Box.create(self)
+        command = "id " + str(search_box(self)+1) + " ; "
+        #print command
+        Box.snd.send_pd(command)
     
     @staticmethod
     def init_socket(r):
@@ -34,9 +37,17 @@ class Number (Box):
         
     #get the value from pd
     def get_value(self):
-        temp = Number.rcv.recv(32)
-        self.value = int(temp[:(len(temp)-2)])
-        return self.value
+        #temp = Number.rcv.recv(1024)
+        #temp = temp[:(len(temp)-2)]
+        #brk = temp.rfind("\n")
+        
+        #if brk == -1: #se nao encontrou
+        #    self.value = int(temp)
+        #else:
+        #    print brk
+        #    self.value = int(temp[(brk+1):len(temp)]) #se encontrou
+        
+        return int(self.value)
         
     
     #edits this object

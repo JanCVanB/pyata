@@ -1,4 +1,3 @@
-
 ##########################################################
 ##########################################################
 # description: abstract class that represents a generic Symbol box
@@ -19,13 +18,16 @@ class Symbol (Box):
     
     #constructor
     def __init__(self, x, y, id=-1):
-        self.text = "symbol"
+        self.value = "symbol"
         Box.__init__(self,x, y, id)
 
     def create(self):
         command = Box.canvas + "obj " + str(self.x) + " " + str(self.y) + " sym ; "
         Box.snd.send_pd(command)
         Box.create(self)
+        command = "id " + str(search_box(self)+1) + " ; "
+        #print command
+        Box.snd.send_pd(command)
     
     @staticmethod
     def init_socket(r):
@@ -33,13 +35,21 @@ class Symbol (Box):
         
     #get the value from pd
     def get_value(self):
-        temp = Symbol.rcv.recv(32)
-        self.text = temp[:(len(temp)-2)]
+        #temp = Symbol.rcv.recv(32)
+        #temp = temp[:(len(temp)-2)]
+        #brk = temp.rfind("\n")
+        
+        #if brk == -1: #se nao encontrou
+        #    self.value = temp
+        #else:
+        #    print brk
+        #    self.value = temp[(brk+1):len(temp)] #se encontrou
+        
         return self.value
         
     
     #edits this object
-    def set(self, text): 
+    def set(self, value): 
         #sets no-edit mode
         command  = Box.canvas + "editmode 1 ; "
         command += Box.canvas + "editmode 0 ; "
@@ -47,10 +57,10 @@ class Symbol (Box):
         
         self.click() #clicks
         
-        for i in self.text: #delete all previous keys
+        for i in self.value: #delete all previous keys
             command += Box.canvas + "key 1 8 0 ; " 
             command += Box.canvas + "key 0 8 0 ; "  
-        for i in text: #sends all key pressed
+        for i in value: #sends all key pressed
             command += Box.canvas + "key 1 " + str(ord(i)) + " 0 ; " 
             command += Box.canvas + "key 0 " + str(ord(i)) + " 0 ; "   
         Box.snd.send_pd(command)
@@ -59,6 +69,8 @@ class Symbol (Box):
         #self.value = self.get_value()
         command += Box.canvas + "editmode 1 ; "
         Box.snd.send_pd(command)
+        
+        self.value=value
     
     
     #aux static function to debug this class
