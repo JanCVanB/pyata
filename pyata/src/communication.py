@@ -24,15 +24,15 @@ from basic_classes.connection import *
 
 
 #variable that stores the port number
-RCV_PORT = 3001 
+#RCV_PORT = 3001 
 #variable that stores the port number
-SND_PORT = 3000 
+#SND_PORT = 3000 
 #variable that stores the host
-HOST = "localhost"
+#HOST = "localhost"
 #replace this to where pd file is (COMPLETY DIRECTORY)
-PD_DIR = ""
+#PD_DIR = ""
 #replace this to where server.pd is (COMPLETY DIRECTORY)
-SERVER_DIR = "/home/jeraman/workspace/pyata/src/aux_patches"
+#SERVER_DIR = "/home/jeraman/workspace/pyata/src/aux_patches"
 
 
 
@@ -42,15 +42,18 @@ SERVER_DIR = "/home/jeraman/workspace/pyata/src/aux_patches"
 
 # a thread class that we're gonna use for calling the server.pd patch
 class RemotePd ( Thread ):
-    def __init__(self, nogui):
+    def __init__(self, nogui, pd_dir, server_dir):
        Thread.__init__(self)
        self.nogui = nogui
-        
+       self.server_dir = server_dir
+       self.pd_dir = pd_dir
+       
+   #run method 
     def run ( self ):
        if self.nogui:
-           temp = "cd %s && pd -nogui %s/server.pd" %(PD_DIR, SERVER_DIR)
+           temp = "cd %s && pd -nogui %s/server.pd" %(self.pd_dir, self.server_dir)
        else:
-           temp = "cd %s && pd %s/server.pd" %(PD_DIR, SERVER_DIR)
+           temp = "cd %s && pd %s/server.pd" %(self.pd_dir, self.server_dir)
        self.p = Popen(temp, shell=True)
 
 
@@ -61,16 +64,52 @@ class Communication():
     
     #constructor
     def __init__(self, nogui): 
-        self.snd_port = int(SND_PORT) 
-        self.rcv_port = int(RCV_PORT)
+        # variables from config file
+        self.pd_dir = ""
+        self.server_dir = "./aux_patches"
+        self.host = "localhost" 
+        self.snd_port = "" 
+        self.rcv_port = ""
+        
+        self.load_config()
+
+        #class variables
         self.snd_socket = socket(AF_INET, SOCK_STREAM)
         self.rcv_socket = socket(AF_INET, SOCK_STREAM)
-        self.host = HOST 
-        self.thread=RemotePd(nogui)
-        self.file = open(SERVER_DIR+"/server.pd","r")
+        self.thread=RemotePd(nogui, self.pd_dir, self.server_dir)
+        self.file = open(self.server_dir+"/server.pd","r")
         #self.canvas = "pd-new"
         self.rcv = ""
-            
+        
+        
+        
+    #loads the properties.config    
+    def load_config(self):
+        config = open("../properties.config","r")
+        
+        #reads the pd dir
+        temp = config.readline()
+        while(temp[0]=="#"):
+            temp = config.readline()
+        self.pd_dir = temp[:len(temp)-1]
+        #print self.pd_dir
+        
+        #reads the server dir
+        temp = config.readline()
+        while(temp[0]=="#"):
+            temp = config.readline()
+        self.rcv_port = int(temp)
+        #print self.rcv_port
+        
+        #reads the server dir
+        temp = config.readline()
+        while(temp[0]=="#"):
+            temp = config.readline()
+        self.snd_port = int(temp)
+        #print self.snd_port
+        
+        config.close()
+        
     #connecting to pd
     def init_pd(self): 
         print "initializing server.pd..."

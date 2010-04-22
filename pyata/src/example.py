@@ -22,8 +22,6 @@ def circle (x):
 
 if __name__ == '__main__':
     pd = Pd()
-    pd.init()
-    
-    pd.quit()
+    pd.c.load_config()
     
    
