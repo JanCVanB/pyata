@@ -19,7 +19,8 @@ from basic_classes.symbol import *
 from basic_classes.comment import *
 from basic_classes.connection import *
 from communication import *
-from gui_updater import *        
+from gui_updater import *   
+from transfer_board import * 
 
 
 
@@ -28,6 +29,7 @@ class Pd():
     def __init__(self):
         self.c = Communication(False)
         self.b = ""
+        self.tb = TransferBoard()
     
     #inicializando a api
     def init(self):
@@ -81,4 +83,53 @@ class Pd():
     #return the connections available in Pd
     def get_connection_list(self):
         return memory_connections
+    
+    
+    
+    #################################
+    ## EDIT MENU METHODS
+    #################################
+
+    #copy method
+    def copy(self):
+        self.tb.copy()
+    
+    #paste method
+    def paste(self, x, y):
+        self.tb.paste(x, y)
+        
+    #cut method
+    def cut(self):
+        self.tb.cut()
+        
+    #duplicate method
+    def duplicate(self, x, y):
+        self.tb.duplicate(x, y)
+              
+    #select all method
+    def selectall(self):
+        command = Box.canvas + "selectall ; "
+        self.c.send_pd(command)
+        self.tb.selectall()
+    
+    
+    
+    #################################
+    ## FIND MENU METHODS
+    #################################
+    
+    #finds a given box by its label
+    def find(self, label):
+        command = self.canvas + "find " + str(label) + " ; "
+        self.send.send_pd(command)
+    
+    #continues the last find called
+    def findagain(self):
+        command = self.canvas + "findagain ; "
+        self.send.send_pd(command)
+    
+    def finderror(self):
+        command = "; pd finderror"
+        self.send.send_pd(command)
+    
     

@@ -2,7 +2,7 @@
 #X obj 72 48 loadbang;
 #X msg 71 78 \; pd dsp 1;
 #X msg 69 127 \; pd dsp 0;
-#N canvas 0 45 1210 219 new 1;
+#N canvas 0 45 761 674 new 1;
 #X restore 201 32 pd new;
 #X obj 252 179 netsend;
 #X obj 271 132 r pyata;

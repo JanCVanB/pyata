@@ -43,11 +43,13 @@ class Box:
         self.create()
         self.inlets = 0
         self.outlets = 0
+        self.selected = False
         #self.inlet= self.verify_inlets()
         #self.outlet=self.verify_outlets()
     
     def create(self):
         #the rest of the code is defined in the subclasses
+        self.selected = False
         memory_box.append(self) 
     
     def delete(self):
@@ -108,27 +110,35 @@ class Box:
         command += Box.canvas + "motion " + str(self.x+1) + " " + str(self.y+1) + " 0 ; "
         command += Box.canvas + "mouseup " + str(self.x+1) + " " + str(self.y+1) + " 1 0 ; "
         Box.snd.send_pd(command)
+        
+        for b in memory_box:
+            b.selected = False
+        self.selected = True
     
     #method that unselects this box
     def unselect(self):
         command  = Box.canvas + "mouse " + str(self.x-2) + " " + str(self.y-2) + " 1 0 ; "
         command += Box.canvas + "mouseup " + str(self.x-2) + " " + str(self.y-2) + " 1 0 ; "
         Box.snd.send_pd(command)
-    
+        
+        for b in memory_box:
+            b.selected = False
     
     #deprecated!
     #method that selects this box with key shift pressed
     def shift_select (self):
-        Box.snd.send_pd( Box.canvas + "key 1 Shift_R 0 ; " )
-        self.select()
-        Box.snd.send_pd( Box.canvas + "key 0 Shift_R 0 ; " )
+        #Box.snd.send_pd( Box.canvas + "key 1 Shift_R 0 ; " )
+        #self.select()
+        #Box.snd.send_pd( Box.canvas + "key 0 Shift_R 0 ; " )
+        self.selected = True
         
     #deprecated!
     #method that unselects this box with key shift pressed
     def shift_unselect(self):
-        Box.snd.send_pd( Box.canvas + "key 1 Shift_R 0 ; " )
-        self.click()
-        Box.nd_pd( Box.canvas + "key 0 Shift_R 0 ; " )
+        #Box.snd.send_pd( Box.canvas + "key 1 Shift_R 0 ; " )
+        #self.click()
+        #Box.nd_pd( Box.canvas + "key 0 Shift_R 0 ; " )
+        self.selected = False
         
     
     #gets the number of inlets of the object

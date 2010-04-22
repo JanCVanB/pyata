@@ -29,7 +29,7 @@ class GuiUpdater(Thread):
             
             for c in commands:
                 i = c.rfind(" ")
-                print c
+                #print c
                 #verifica se a string nao veio quebrada
                 result = c.split(" ")
                 if len(result) > 1:                
