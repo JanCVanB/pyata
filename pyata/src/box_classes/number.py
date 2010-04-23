@@ -10,6 +10,7 @@
 
 from box    import *
 from socket import *
+from time import *
 
 
 
@@ -37,16 +38,7 @@ class Number (Box):
         
     #get the value from pd
     def get_value(self):
-        #temp = Number.rcv.recv(1024)
-        #temp = temp[:(len(temp)-2)]
-        #brk = temp.rfind("\n")
-        
-        #if brk == -1: #se nao encontrou
-        #    self.value = int(temp)
-        #else:
-        #    print brk
-        #    self.value = int(temp[(brk+1):len(temp)]) #se encontrou
-        
+        sleep(0.1)
         return int(self.value)
         
     

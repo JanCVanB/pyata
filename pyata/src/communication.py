@@ -23,21 +23,6 @@ from basic_classes.connection import *
 
 
 
-#variable that stores the port number
-#RCV_PORT = 3001 
-#variable that stores the port number
-#SND_PORT = 3000 
-#variable that stores the host
-#HOST = "localhost"
-#replace this to where pd file is (COMPLETY DIRECTORY)
-#PD_DIR = ""
-#replace this to where server.pd is (COMPLETY DIRECTORY)
-#SERVER_DIR = "/home/jeraman/workspace/pyata/src/aux_patches"
-
-
-
-
-
 
 
 # a thread class that we're gonna use for calling the server.pd patch
@@ -69,16 +54,14 @@ class Communication():
         self.server_dir = "./aux_patches"
         self.host = "localhost" 
         self.snd_port = "" 
-        self.rcv_port = ""
-        
-        self.load_config()
+        self.rcv_port = ""      
+        self.load_config() #loads the properties.config
 
         #class variables
         self.snd_socket = socket(AF_INET, SOCK_STREAM)
         self.rcv_socket = socket(AF_INET, SOCK_STREAM)
         self.thread=RemotePd(nogui, self.pd_dir, self.server_dir)
         self.file = open(self.server_dir+"/server.pd","r")
-        #self.canvas = "pd-new"
         self.rcv = ""
         
         
@@ -92,21 +75,18 @@ class Communication():
         while(temp[0]=="#"):
             temp = config.readline()
         self.pd_dir = temp[:len(temp)-1]
-        #print self.pd_dir
         
         #reads the server dir
         temp = config.readline()
         while(temp[0]=="#"):
             temp = config.readline()
         self.rcv_port = int(temp)
-        #print self.rcv_port
         
         #reads the server dir
         temp = config.readline()
         while(temp[0]=="#"):
             temp = config.readline()
         self.snd_port = int(temp)
-        #print self.snd_port
         
         config.close()
         
