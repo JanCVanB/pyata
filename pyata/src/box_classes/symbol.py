@@ -28,6 +28,7 @@ class Symbol (Box):
         command = "id " + str(search_box(self)+1) + " ; "
         #print command
         Box.snd.send_pd(command)
+        sleep(0.1)
     
     @staticmethod
     def init_socket(r):
