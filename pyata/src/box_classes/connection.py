@@ -24,7 +24,7 @@ def connect (b1, outlet, b2, inlet):
 #disconnect a connection
 def disconnect(b1, outlet, b2, inlet):
     #procura a conexao
-    i = search_connections(b1, 0, b2, 0)
+    i = search_connection(b1, outlet, b2, inlet)
     #se realmente existir
     if i>-1:
         return memory_connections[i].delete()
@@ -33,11 +33,11 @@ def disconnect(b1, outlet, b2, inlet):
 
 
 #searchs a generic connection
-def search_connections (b1, o, b2, i):
+def search_connection (b1, outlet, b2, inlet):
     i=0   
-    #seraching for a specific box in memory
+    #seraching for a specific box in memory    
     for c in memory_connections:
-        if (b1==c.box_orig) & (o==c.outlet) & (b2==c.box_dest) & (i==c.inlet):
+        if (b1==c.box_orig) & (outlet==c.outlet) & (b2==c.box_dest) & (inlet==c.inlet):
             return i
         i+=1
     
@@ -106,7 +106,7 @@ class Connection:
             
             #verifies if changed
             if t1 != t2:
-                i=search_connections(self.box_orig, self.outlet, self.box_dest, self.inlet)
+                i=search_connection(self.box_orig, self.outlet, self.box_dest, self.inlet)
                 memory_connections.pop(i)
                 return True
             else:
