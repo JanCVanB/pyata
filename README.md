@@ -7,6 +7,30 @@ Authored by Jerônimo Barbosa ([@jeraman](https://github.com/jeraman))
 Recovered by Jan Van Bruggen ([@JanCVanB](https://github.com/JanCVanB))
 from https://code.google.com/archive/p/pyata
 
+[Demo on Youtube:](https://www.youtube.com/watch?v=Xpwb48qjxds)
+
+[![Pyata Demo (using Pure Data inside Python)](https://img.youtube.com/vi/Xpwb48qjxds/0.jpg)](https://www.youtube.com/watch?v=Xpwb48qjxds)
+
+
+## Description
+
+Pyata (Pyatã, from Tupi or yet, Py.thon + Pure D.ata) is a simple cross-plataform open-source Python module that allows people to use [Pure Data](http://puredata.info/) (aka, Pd) just like an API. In other words, it is an abstraction to Pd, that can be used for doing a lot of things that Pd can do, but without manipulate the Pd interface in a direct way.
+
+It was developed using a technique known as "[dynamic patching](https://jeraman.info/2009/03/22/how-to-use-pure-data-as-a-api/)", which is based on dynamic creation of Pd objects realized through sockets, achieved through [FUDI protocol](http://wiki.puredata.info/en/FUDI). This means, for example, that we can create a [osc~ 440] object sending to Pd a specific message through sockets.
+
+So what basically the library does is to receive the commands given by users, transforming them into the equivalent message. These messages are sent to Pd, that processes them like they were a patch running inside Pd (a virtual patch), generating results. After that, these results are reloaded again into the Python program, that allows it to be always updated according the “virtual patch”.
+
+Before starting, please, read [the tutorial](https://github.com/JanCVanB/pyata/blob/master/wiki/Getting_Started.md)!
+
+
+## Functionalities
+
+This version includes:
+- Boxes creation, edition and remotion (object, number, comments, symbols and messages)
+- Get from Pd the state of any box (number of inlet/outlets, the ID of each box on Patch, values of numbers and symbols)
+- Connection management (connect and disconnect boxes)
+- Basic operations (copy, paste, duplicate, cut, save)
+
 
 ## Recovery steps
 
